@@ -1,0 +1,7 @@
+{
+  "phone": "+919876543210",
+  "email": "user@example.com",
+  "locale": "en",
+  "preferred_channel": "sms",
+  "template_key": "default_otp"
+}
