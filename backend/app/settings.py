@@ -6,7 +6,12 @@ import os
 @dataclass(frozen=True)
 class Settings:
     app_name: str = "OTP Authentication Service"
-    database_path: Path = Path(os.getenv("OTP_DB_PATH", Path(__file__).resolve().parent.parent / "data" / "otp.db"))
+    database_path: Path = Path(
+        os.getenv(
+            "OTP_DB_PATH",
+            "/tmp/otp.db" if os.getenv("VERCEL") == "1" else Path(__file__).resolve().parent.parent / "data" / "otp.db",
+        )
+    )
     webhook_secret: str = os.getenv("OTP_WEBHOOK_SECRET", "dev-webhook-secret")
     webhook_url: str = os.getenv("OTP_WEBHOOK_URL", "")
     webhook_timeout_seconds: int = int(os.getenv("OTP_WEBHOOK_TIMEOUT_SECONDS", "5"))

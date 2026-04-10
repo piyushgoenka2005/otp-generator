@@ -445,7 +445,7 @@ function App() {
                     value={adminUsername}
                     onChange={(event) => setAdminUsername(event.target.value)}
                     placeholder="Enter admin username"
-                    autoComplete="username"
+                    autoComplete="off"
                     required
                   />
                 </label>
@@ -456,7 +456,7 @@ function App() {
                     value={adminPassword}
                     onChange={(event) => setAdminPassword(event.target.value)}
                     placeholder="Enter admin password"
-                    autoComplete="current-password"
+                    autoComplete="off"
                     required
                   />
                 </label>
@@ -479,7 +479,7 @@ function App() {
                     value={requestPhone}
                     onChange={(event) => setRequestPhone(event.target.value)}
                     placeholder="+919876543210"
-                    autoComplete="tel"
+                    autoComplete="off"
                     required
                   />
                 </label>
@@ -490,7 +490,7 @@ function App() {
                     value={requestEmail}
                     onChange={(event) => setRequestEmail(event.target.value)}
                     placeholder="you@example.com"
-                    autoComplete="email"
+                    autoComplete="off"
                     required
                   />
                 </label>
