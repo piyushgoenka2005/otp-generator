@@ -28,6 +28,7 @@ class IssueResult:
     sender_id: str
     fraud_blocked: bool
     notes: list[str]
+    test_code: str | None
 
 
 @dataclass(frozen=True)
@@ -460,6 +461,7 @@ class OtpPlatformService:
             sender_id=sender_id,
             fraud_blocked=blocked,
             notes=notes + [f"Template {template['key']} applied."] + ([f"Fraud score: {fraud_score:.2f}"] if fraud_reason else []),
+            test_code=code if settings.otp_expose_test_code else None,
         )
 
     def _render_template(self, template_body: str, code: str) -> str:

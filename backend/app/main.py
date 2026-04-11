@@ -111,6 +111,7 @@ def request_otp(payload: OtpRequest, request: Request) -> OtpResponse:
         sender_id=result.sender_id,
         fraud_blocked=result.fraud_blocked,
         notes=result.notes,
+        test_code=result.test_code,
     )
 
 

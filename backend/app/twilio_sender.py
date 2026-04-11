@@ -68,6 +68,12 @@ class TwilioSender:
 
     def send_email(self, email: str, message: str) -> dict[str, Any]:
         """Placeholder for email sending (future enhancement with SendGrid/Mailgun)."""
+        if not settings.otp_mock_email_delivery:
+            return {
+                "success": False,
+                "error": "Email provider is not configured. Set OTP_MOCK_EMAIL_DELIVERY=true only for demo testing.",
+                "channel": "email",
+            }
         logger.info(f"Email delivery placeholder for {email}")
         return {
             "success": True,

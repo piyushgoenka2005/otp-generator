@@ -2,6 +2,11 @@ from dataclasses import dataclass
 from pathlib import Path
 import os
 
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 @dataclass(frozen=True)
 class Settings:
@@ -33,6 +38,10 @@ class Settings:
     otp_ip_limit_window_minutes: int = int(os.getenv("OTP_IP_LIMIT_WINDOW_MINUTES", "5"))
     otp_ip_limit_count: int = int(os.getenv("OTP_IP_LIMIT_COUNT", "20"))
     otp_verify_attempt_limit: int = int(os.getenv("OTP_VERIFY_ATTEMPT_LIMIT", "5"))
+    otp_mock_email_delivery: bool = os.getenv("OTP_MOCK_EMAIL_DELIVERY", "false").lower() == "true"
+    otp_expose_test_code: bool = (
+        os.getenv("OTP_EXPOSE_TEST_CODE", "true" if os.getenv("VERCEL") != "1" else "false").lower() == "true"
+    )
 
 
 settings = Settings()

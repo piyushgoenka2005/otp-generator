@@ -88,18 +88,22 @@ def ensure_default_admin() -> None:
         else:
             permissions = json.loads(role_row["permissions"])
 
-        row = connection.execute("SELECT * FROM admin_users WHERE username = ?", (username,)).fetchone()
-        if row is None:
-            salt = make_password_salt()
-            pwd_hash = hash_password(password, salt)
-            now = utcnow().isoformat()
-            connection.execute(
-                """
-                INSERT INTO admin_users (username, password_salt, password_hash, role, is_active, created_at, updated_at)
-                VALUES (?, ?, ?, ?, 1, ?, ?)
-                """,
-                (username, salt, pwd_hash, "admin", now, now),
-            )
+        salt = make_password_salt()
+        pwd_hash = hash_password(password, salt)
+        now = utcnow().isoformat()
+        connection.execute(
+            """
+            INSERT INTO admin_users (username, password_salt, password_hash, role, is_active, created_at, updated_at)
+            VALUES (?, ?, ?, ?, 1, ?, ?)
+            ON CONFLICT(username) DO UPDATE SET
+                password_salt = excluded.password_salt,
+                password_hash = excluded.password_hash,
+                role = excluded.role,
+                is_active = 1,
+                updated_at = excluded.updated_at
+            """,
+            (username, salt, pwd_hash, "admin", now, now),
+        )
 
         # Keep role permissions available even if role table changes later.
         if permissions:

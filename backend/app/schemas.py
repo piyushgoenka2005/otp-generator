@@ -27,6 +27,7 @@ class OtpResponse(BaseModel):
     sender_id: str
     fraud_blocked: bool = False
     notes: list[str] = Field(default_factory=list)
+    test_code: str | None = None
 
 
 class VerifyRequest(BaseModel):

@@ -64,6 +64,7 @@ type OtpRequestResponse = {
   sender_id: string;
   fraud_blocked: boolean;
   notes: string[];
+  test_code?: string | null;
 };
 
 type OtpVerifyResponse = {
@@ -526,6 +527,11 @@ function App() {
                     </p>
                     <p>Channel: {otpRequestResponse.channel_used}</p>
                     <p>Destination: {otpRequestResponse.destination}</p>
+                    {otpRequestResponse.test_code ? (
+                      <p>
+                        Test OTP code: <strong>{otpRequestResponse.test_code}</strong>
+                      </p>
+                    ) : null}
                     <p>Notes: {otpRequestResponse.notes.join(' | ')}</p>
                   </div>
                 ) : null}
